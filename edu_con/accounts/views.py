@@ -58,12 +58,29 @@ def user_dashboard(request):
     context = {
         'courses': courses
     }
-    return render(request, 'dashboard.html')
+    return render(request, 'dashboard.html', context)
+
+# def enroll_the_course(request):
+#     course_id = request.POST['course_id']
+#     user_id = request.POST['user_id']
+#     course = Course.objects.get(id = course_id)
+#     user = User.objects.get(id = user_id)
+#     course.students.add(user)
+#     return redirect('dashboard')
 
 def enroll_the_course(request):
-    course_id = request.POST['course_id']
-    user_id = request.POST['user_id']
-    course = Course.objects.get(id = course_id)
-    user = User.objects.get(id = user_id)
-    course.students.add(user)
+    if request.method == 'POST':
+        course_id = request.POST.get('course_id')
+        user_id = request.POST.get('user_id')
+        
+        if course_id and user_id:
+            course = Course.objects.get(id=course_id)
+            user = User.objects.get(id=user_id)
+            
+            # Kullanıcıyı kursa ekle
+            course.students.add(user)
+            
+            return redirect('dashboard')
+    
+    # Hatalı bir istek durumunda ya da POST verisi olmadığında dashboard'a yönlendir
     return redirect('dashboard')
