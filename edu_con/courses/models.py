@@ -26,8 +26,8 @@ class Course(models.Model):
     image = models.ImageField(upload_to="courses/%Y/%m/%d/", default="courses/default_course_image.jpg")
     date = models.DateTimeField(auto_now=True)
     available = models.BooleanField(default=True)
+    video_url = models.URLField(blank=True, null=True, help_text="Enter the URL of the video.")
 
     def __str__(self):
         return self.name
-    
 

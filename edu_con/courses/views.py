@@ -48,7 +48,7 @@ def course_list(request, category_slug=None, tag_slug=None):
     context = {
         'courses': courses,
         'categories': categories,
-        'tags' : tags
+        'tags' : tags,
     }
 
 
